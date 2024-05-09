@@ -1,18 +1,17 @@
-import { categories } from "../utils/categories";
+import { categories } from "../utils/constants";
 
-const Sidebar = () => {
-	const selectedCategory = "New";
-
+const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
 	return (
-		<div className="flex-col w-full flex items-center justify-center">
+		<div className="flex flex-col items-center justify-center w-full py-2">
 			{categories.map((category) => (
 				<button
+					onClick={() => setSelectedCategory(category.name)}
 					style={{
 						background: category.name === selectedCategory && "#FC1503",
 						color: "#fff",
 					}}
 					key={category.name}
-					className="w-full rounded-xl my-1 flex justify-start items-center py-2  px-4 font-medium "
+					className="flex items-center justify-start w-full px-4 py-2 my-1 font-medium rounded-xl "
 				>
 					<span
 						style={{

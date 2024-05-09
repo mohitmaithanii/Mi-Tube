@@ -23,7 +23,6 @@ export const categories = [
 	{ name: "Podcast", icon: <AudioLinesIcon size={20} /> },
 	{ name: "Movie", icon: <MonitorPlayIcon size={20} /> },
 	{ name: "Gaming", icon: <Gamepad2Icon size={20} /> },
-	{ name: "Live", icon: <RadioIcon size={20} /> },
 	{ name: "Sport", icon: <BikeIcon size={20} /> },
 	{ name: "Fashion", icon: <ShirtIcon size={20} /> },
 	{ name: "Beauty", icon: <SmilePlusIcon size={20} /> },
@@ -31,3 +30,12 @@ export const categories = [
 	{ name: "Gym", icon: <DumbbellIcon size={20} /> },
 	{ name: "Crypto", icon: <BadgeCentIcon size={20} /> },
 ];
+
+export const demoThumbnailUrl = "https://i.ibb.co/G2L2Gwp/API-Course.png";
+export const demoChannelUrl = "/channel/UCmXmlB4-HJytD7wek0Uo97A";
+export const demoVideoUrl = "/video/GDa8kZLNhJ4";
+export const demoChannelTitle = "JavaScript Mastery";
+export const demoVideoTitle =
+	"Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI";
+export const demoProfilePicture =
+	"http://dergipark.org.tr/assets/app/images/buddy_sample.png";
