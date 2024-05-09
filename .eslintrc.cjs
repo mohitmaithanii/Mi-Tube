@@ -17,9 +17,5 @@ module.exports = {
 			"warn",
 			{ allowConstantExport: true },
 		],
-		rules: {
-			semi: "error",
-			"prefer-const": "error",
-		},
 	},
 };
