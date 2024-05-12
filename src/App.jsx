@@ -1,24 +1,28 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import {
-	Navbar,
-	Feed,
-	VideoDetail,
-	ChannelDetail,
-	SearchFeed,
-} from "./components";
+import { useEffect } from "react";
+import { fetchDataFromApi } from "./utils/api";
+import { useSelector, useDispatch } from "react-redux";
+import { getApiConfiguration } from "./store/homeSlice";
 
 const App = () => {
+	const dispatch = useDispatch();
+	const { url } = useSelector((state) => state.home);
+
+	useEffect(() => {
+		apiTesting();
+	}, []);
+
+	const apiTesting = () => {
+		fetchDataFromApi("/movie/popular").then((res) => {
+			console.log(res);
+			dispatch(getApiConfiguration(res));
+		});
+	};
+
 	return (
-		<Router>
-			<Navbar />
-			<Routes>
-				<Route path="/" exact element={<Feed />} />
-				<Route path="/video/:id" element={<VideoDetail />} />
-				<Route path="/channel/:id" element={<ChannelDetail />} />
-				<Route path="/search/:searchTerm" element={<SearchFeed />} />
-			</Routes>
-		</Router>
+		<div className="App">
+			App
+			{url?.total_pages}
+		</div>
 	);
 };
 
