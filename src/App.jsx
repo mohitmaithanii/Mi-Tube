@@ -47,7 +47,7 @@ const App = () => {
 				<Route path="/explore/:mediaType" element={<Explore />} />
 				<Route path="*" element={<PagesNotFound />} />
 			</Routes>
-			{/* <Footer /> */}
+			<Footer />
 		</Router>
 	);
 };
