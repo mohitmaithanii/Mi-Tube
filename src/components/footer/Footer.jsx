@@ -8,13 +8,7 @@ const Footer = () => {
 	return (
 		<footer className="footer">
 			<ContentWrapper>
-				<ul className="menuItems">
-					<li className="menuItem">Terms Of Use</li>
-					<li className="menuItem">Privacy-Policy</li>
-					<li className="menuItem">About</li>
-					<li className="menuItem">Blog</li>
-					<li className="menuItem">FAQ</li>
-				</ul>
+				<span className="menuItems">Copyright © 2024 Mohit Maithani</span>
 
 				<div className="socialIcons">
 					<Link
