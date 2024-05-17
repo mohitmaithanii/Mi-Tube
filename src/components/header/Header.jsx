@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import "./style.scss";
 
@@ -29,10 +29,10 @@ const Header = () => {
 			} else {
 				setShow("show");
 			}
-			setLastScrollY(window.scrollY);
 		} else {
 			setShow("top");
 		}
+		setLastScrollY(window.scrollY);
 	};
 
 	useEffect(() => {
@@ -42,8 +42,9 @@ const Header = () => {
 		};
 	}, [lastScrollY]);
 
-	const searchQueryHandler = (e) => {
-		if (e.key === "Enter" && query.length > 0) {
+	const searchQueryHandler = (event) => {
+		event.preventDefault();
+		if (query.length > 0) {
 			navigate(`/search/${query}`);
 			setTimeout(() => {
 				setShowSearch(false);
@@ -73,12 +74,9 @@ const Header = () => {
 	return (
 		<header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
 			<ContentWrapper>
-				<div className="logo">
-					<Link to={"/"}>
-						<img src={logo} alt="" />
-					</Link>
+				<div className="logo" onClick={() => navigate("/")}>
+					<img src={logo} alt="" />
 				</div>
-
 				<ul className="menuItems">
 					<li className="menuItem" onClick={() => navigationHandler("movie")}>
 						Movies
@@ -104,15 +102,15 @@ const Header = () => {
 			{showSearch && (
 				<div className="searchBar">
 					<ContentWrapper>
-						<div className="searchInput">
-							<input
-								type="text"
-								placeholder="Search for a movies or tv show..."
-								onKeyUp={searchQueryHandler}
-								onChange={(e) => setQuery(e.target.value)}
-							/>
-							<VscChromeClose onClick={() => setShowSearch(false)} />
-						</div>
+						<form onSubmit={searchQueryHandler}>
+							<div className="searchInput">
+								<input
+									type="text"
+									placeholder="Search for a movie or tv show...."
+									onChange={(e) => setQuery(e.target.value)}
+								/>
+							</div>
+						</form>
 					</ContentWrapper>
 				</div>
 			)}
