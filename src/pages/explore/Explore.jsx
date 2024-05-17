@@ -13,25 +13,11 @@ import Spinner from "../../components/spinner/Spinner";
 
 let filters = {};
 
-const sortbyData = [
-	{ value: "popularity.desc", label: "Popularity Descending" },
-	{ value: "popularity.asc", label: "Popularity Ascending" },
-	{ value: "vote_average.desc", label: "Rating Descending" },
-	{ value: "vote_average.asc", label: "Rating Ascending" },
-	{
-		value: "primary_release_date.desc",
-		label: "Release Date Descending",
-	},
-	{ value: "primary_release_date.asc", label: "Release Date Ascending" },
-	{ value: "original_title.asc", label: "Title (A-Z)" },
-];
-
 const Explore = () => {
 	const [data, setData] = useState(null);
 	const [pageNum, setPageNum] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const [genre, setGenre] = useState(null);
-	const [sortby, setSortby] = useState(null);
 	const { mediaType } = useParams();
 
 	const { data: genresData } = useFetch(`/genre/${mediaType}/list`);
@@ -65,21 +51,10 @@ const Explore = () => {
 		filters = {};
 		setData(null);
 		setPageNum(1);
-		setSortby(null);
-		setGenre(null);
 		fetchInitialData();
 	}, [mediaType]);
 
 	const onChange = (selectedItems, action) => {
-		if (action.name === "sortby") {
-			setSortby(selectedItems);
-			if (action.action !== "clear") {
-				filters.sort_by = selectedItems.value;
-			} else {
-				delete filters.sort_by;
-			}
-		}
-
 		if (action.name === "genres") {
 			setGenre(selectedItems);
 			if (action.action !== "clear") {
@@ -114,16 +89,6 @@ const Explore = () => {
 							onChange={onChange}
 							placeholder="Select genres"
 							className="react-select-container genresDD"
-							classNamePrefix="react-select"
-						/>
-						<Select
-							name="sortby"
-							value={sortby}
-							options={sortbyData}
-							onChange={onChange}
-							isClearable={true}
-							placeholder="Sort by"
-							className="react-select-container sortbyDD"
 							classNamePrefix="react-select"
 						/>
 					</div>

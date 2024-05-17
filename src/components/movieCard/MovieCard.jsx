@@ -11,20 +11,22 @@ import PosterFallback from "../../assets/Moviex-images/no-poster.png";
 
 const MovieCard = ({ data, fromSearch, mediaType }) => {
 	const { url } = useSelector((state) => state.home);
-	const navigate = useNavigate();
 	const posterUrl = data.poster_path
-		? url.poster + data.poster_path
+		? `${url.poster}${data.poster_path}`
 		: PosterFallback;
+	const navigate = useNavigate();
+
+	const handleCardClick = () => {
+		navigate(`/${data.media_type || mediaType}/${data.id}`);
+	};
+
 	return (
-		<div
-			className="movieCard"
-			onClick={() => navigate(`/${data.media_type || mediaType}/${data.id}`)}
-		>
+		<div className="movieCard" onClick={handleCardClick}>
 			<div className="posterBlock">
 				<Img className="posterImg" src={posterUrl} />
 				{!fromSearch && (
 					<>
-						<CircleRating rating={data.vote_average.toFixed(1)} />
+						<CircleRating rating={parseFloat(data.vote_average).toFixed(1)} />
 						<Genres data={data.genre_ids.slice(0, 2)} />
 					</>
 				)}

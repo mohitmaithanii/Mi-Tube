@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
 	BsFillArrowLeftCircleFill,
 	BsFillArrowRightCircleFill,
 } from "react-icons/bs";
+
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
@@ -16,22 +17,30 @@ import Genres from "../genres/Genres";
 import "./style.scss";
 
 const Carousel = ({ data, loading, endpoint, title }) => {
-	const carouselContainer = useRef();
+	const carouselContainer = useRef(null);
+	const [scrollPosition, setScrollPosition] = useState(0);
 	const { url } = useSelector((state) => state.home);
 	const navigate = useNavigate();
 
+	useEffect(() => {
+		if (carouselContainer.current) {
+			carouselContainer.current.scrollTo({
+				left: scrollPosition,
+				behavior: "smooth",
+			});
+		}
+	}, [scrollPosition]);
+
 	const navigation = (dir) => {
-		const container = carouselContainer.current;
+		if (carouselContainer.current) {
+			const containerWidth = carouselContainer.current.offsetWidth;
+			const scrollAmount =
+				dir === "left"
+					? scrollPosition - (containerWidth + 20)
+					: scrollPosition + (containerWidth + 20);
 
-		const scrollAmount =
-			dir === "left"
-				? container.scrollLeft - (container.offsetWidth + 20)
-				: container.scrollLeft + (container.offsetWidth + 20);
-
-		container.scrollTo({
-			left: scrollAmount,
-			behavior: "smooth",
-		});
+			setScrollPosition(scrollAmount);
+		}
 	};
 
 	const skItem = () => {
